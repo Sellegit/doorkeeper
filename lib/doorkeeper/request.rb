@@ -2,6 +2,7 @@ require 'doorkeeper/request/authorization_code'
 require 'doorkeeper/request/client_credentials'
 require 'doorkeeper/request/code'
 require 'doorkeeper/request/password'
+require 'doorkeeper/request/vendor_oauth'
 require 'doorkeeper/request/refresh_token'
 require 'doorkeeper/request/token'
 

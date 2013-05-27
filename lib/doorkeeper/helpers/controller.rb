@@ -22,6 +22,10 @@ module Doorkeeper
         instance_eval &Doorkeeper.configuration.resource_owner_from_credentials
       end
 
+      def vendor_resource_owner_from_request
+        instance_eval &Doorkeeper.configuration.vendor_resource_owner_from_request
+      end
+
       def authenticate_admin!
         instance_eval &Doorkeeper.configuration.authenticate_admin
       end
