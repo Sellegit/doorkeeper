@@ -19,7 +19,7 @@ module Doorkeeper
         validate
         @response = if valid?
           revoke_and_create_access_token
-          OAuth::TokenResponse.new access_token
+          OAuth::TokenResponse.new(access_token)
         else
           OAuth::ErrorResponse.from_request(self)
         end

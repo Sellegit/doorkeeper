@@ -2,6 +2,7 @@ module Doorkeeper
   module OAuth
     class TokenResponse
       attr_accessor :token
+      attr_accessor :resource_owner
 
       def initialize(token)
         @token = token
@@ -14,7 +15,7 @@ module Doorkeeper
           'expires_in'    => token.expires_in,
           'refresh_token' => token.refresh_token,
           'scope'         => token.scopes_string
-        }
+        }.merge(Doorkeeper.configuration.additional_token_response.call(token.resource_owner_id))
       end
 
       def status

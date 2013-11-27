@@ -155,6 +155,7 @@ module Doorkeeper
     option :authorization_code_expires_in,:default => 600
     option :orm, :default => :active_record
     option :test_redirect_uri, :default => 'urn:ietf:wg:oauth:2.0:oob'
+    option :additional_token_response, :default => lambda{|resource_owner_id| {} }
 
 
     def refresh_token_enabled?
