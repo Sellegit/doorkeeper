@@ -7,13 +7,13 @@ module Doorkeeper::OAuth
     validate :vendor_resource_owner, :error => :invalid_resource_owner
     validate :scopes,                :error => :invalid_scope
 
-    attr_accessor :server, :client, :vendor_resource_owner
+    attr_accessor :server, :client, :vendor_resource_owner, :state
 
-    def initialize(server, client, vendor_resource_owner, parameters = {})
+    def initialize(server, client, current_server, parameters = {})
       @server                = server
-      @vendor_resource_owner = vendor_resource_owner
       @client                = client
       @original_scopes       = parameters[:scope]
+      @current_server        = current_server
     end
 
     def authorize
@@ -78,7 +78,13 @@ module Doorkeeper::OAuth
     end
 
     def validate_vendor_resource_owner
-      !!vendor_resource_owner
+      begin
+        !!(@vendor_resource_owner ||= @current_server.vendor_resource_owner)
+      rescue Doorkeeper::Errors::InvalidVendorResourceOwnerError => e
+        @state = e.error_state 
+        @error = :invalid_resource_owner
+        false
+      end
     end
   end
 end

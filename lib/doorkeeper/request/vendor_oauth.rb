@@ -2,17 +2,17 @@ module Doorkeeper
   module Request
     class VendorOauth
       def self.build(server)
-        new(server.client, server.vendor_resource_owner, server)
+        new(server.client, server)
       end
 
-      attr_accessor :client, :vendor_resource_owner, :server
+      attr_accessor :client, :server
 
-      def initialize(client, vendor_resource_owner, server)
-        @client, @vendor_resource_owner, @server = client, vendor_resource_owner, server
+      def initialize(client, server)
+        @client, @server = client, server
       end
 
       def request
-        @request ||= OAuth::VendorOauthRequest.new(Doorkeeper.configuration, client, vendor_resource_owner, server.parameters)
+        @request ||= OAuth::VendorOauthRequest.new(Doorkeeper.configuration, client, server, server.parameters)
       end
 
       def authorize
