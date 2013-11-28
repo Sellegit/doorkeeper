@@ -64,7 +64,7 @@ module Doorkeeper::OAuth
         :resource_owner_id  => vendor_resource_owner.id,
         :scopes             => scopes.to_s,
         :expires_in         => server.access_token_expires_in,
-        :use_refresh_token  => false,
+        :use_refresh_token  => server.refresh_token_enabled?,
       })
     end
 
