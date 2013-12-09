@@ -42,6 +42,8 @@ module Doorkeeper
           :unsupported_response_type
         when Errors::MissingRequestStrategy
           :invalid_request
+        when Errors::CustomError
+          exception.error_name
         end
 
         OAuth::ErrorResponse.new :name => error_name, :state => params[:state]

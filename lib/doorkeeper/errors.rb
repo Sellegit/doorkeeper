@@ -12,6 +12,14 @@ module Doorkeeper
     class MissingRequestStrategy < DoorkeeperError
     end
 
+    class CustomError < DoorkeeperError
+      attr_accessor :error_name
+      def initialize(msg, error_name)
+        super(msg)
+        @error_name = error_name
+      end
+    end
+
     class InvalidVendorResourceOwnerError < DoorkeeperError
       attr_accessor :error_state
       def initialize(msg, error_state=nil)
