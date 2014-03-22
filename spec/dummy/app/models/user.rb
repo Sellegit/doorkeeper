@@ -21,7 +21,7 @@ when :mongo_mapper
 end
 
 class User
-  if ::Rails.version.to_i < 4
+  if respond_to?(:attr_accessible) && ::Rails.version.to_i < 4
     attr_accessible :name, :password
   end
 
