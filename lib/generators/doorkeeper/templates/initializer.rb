@@ -48,7 +48,7 @@ Doorkeeper.configure do
   # Change the way access token is authenticated from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
   # falls back to the `:access_token` or `:bearer_token` params from the `params` object.
-  # Check out the wiki for mor information on customization
+  # Check out the wiki for more information on customization
   # access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
 
   # Change the test redirect uri for client apps
@@ -64,4 +64,12 @@ Doorkeeper.configure do
   # skip_authorization do |resource_owner, client|
   #   client.superapp? or resource_owner.admin?
   # end
+
+  # WWW-Authenticate Realm (default "Doorkeeper").
+  # realm "Doorkeeper"
+
+  # Allow dynamic query parameters (disabled by default)
+  # Some applications require dynamic query parameters on their request_uri
+  # set to true if you want this to be allowed
+  # wildcard_redirect_uri false
 end
