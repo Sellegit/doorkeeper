@@ -50,10 +50,16 @@ module Doorkeeper
       end
 
       def handle_token_exception(exception)
-        error = get_error_response_from_exception exception
-        self.headers.merge!  error.headers
-        self.response_body = error.body.to_json
-        self.status        = error.status
+        case exception
+        when Errors::TypedError
+          self.response_body = exception.params.merge(error_type: exception.error_type).to_json
+          self.status = exception.status
+        else
+          error = get_error_response_from_exception exception
+          self.headers.merge!  error.headers
+          self.status        = error.status
+          self.response_body = error.body.to_json
+        end
       end
 
       def skip_authorization?
